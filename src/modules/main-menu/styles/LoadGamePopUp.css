@@ -1,0 +1,6 @@
+.saves-container {
+    margin-top: 2vh;
+    display: flex;
+    flex-direction: column;
+}
+

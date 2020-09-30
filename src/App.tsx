@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import MainMenu from 'modules/main-menu'
+import Game from 'modules/game'
+import { SavedGameManager } from 'types'
 
-function App() {
+export default function App()  {
+  const [loadedGame, loadGame] = useState('')
+
+  const savedGameManager: SavedGameManager = {
+    load: (serializedGame: string) => {loadGame(serializedGame)},
+    quit: () => {loadGame('')},
+    get: () => loadedGame,
+  }
+
+  const main = () => loadedGame ? game : mainMenu
+
+  const game = <Game savedGameManager={savedGameManager}/>
+  const mainMenu = <MainMenu savedGameManager={savedGameManager}/>
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+        {main()}
     </div>
   );
 }
 
-export default App;

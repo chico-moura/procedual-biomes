@@ -1,0 +1,17 @@
+
+.new-save input {
+    margin-top: 1vh;
+    margin-bottom: 2vh;
+    height: 4vh;
+    width: 80%;
+}
+
+.create-button {
+    width: 50%;
+    height: 5vh;
+}
+
+.error-message {
+    font-size: 2vh;
+    color: red;
+}
