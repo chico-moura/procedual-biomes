@@ -5,19 +5,27 @@ import gameRepo from 'gameRepo'
 interface LoadButtonRowProps {
     gameName: string 
     key: string
-    resetGameNames: () => void
+    refreshGameNames: () => void
+    loadGame: (serializedGame: string) => void
 }
 
 export default function LoadButtonRow(props: LoadButtonRowProps) {
     const deleteGame = () => {
-        gameRepo.deleteGame(props.gameName)
-        props.resetGameNames()
+        gameRepo.delete(props.gameName)
+        props.refreshGameNames()
+    }
+
+    const loadGame = () => {
+        const game = gameRepo.get(props.gameName)!
+        props.loadGame(game)
     }
 
     return (
         <div>
             
-            <button className='load-button'>
+            <button 
+                className='load-button'
+                onClick={loadGame}>
                 {props.gameName}
             </button>
 

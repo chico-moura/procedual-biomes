@@ -2,12 +2,11 @@ import React, { FormEvent, useState } from 'react'
 import '../styles/NewSavePopUp.css'
 import ExitButton from 'modules/shared/exit-button'
 import newSaveErrors from '../newSaveErrors'
-import { SavedGameManager } from 'types'
 import gameRepo from 'gameRepo'
 
 interface NewSavePopUpProps {
     hide: () => void,
-    savedGameManager: SavedGameManager
+    loadGame: (serializedGame: string) => void,
 }
 
 export default function NewGamePopUp(props: NewSavePopUpProps) {
@@ -34,7 +33,8 @@ export default function NewGamePopUp(props: NewSavePopUpProps) {
     }
 
     const createNewGame = () => {
-        gameRepo.createNewGame(name)
+        gameRepo.create(name)
+        props.loadGame(name)
         props.hide()
     }
 

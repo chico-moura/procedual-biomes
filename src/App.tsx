@@ -16,7 +16,7 @@ export default function App()  {
   const main = () => loadedGame ? game : mainMenu
 
   const game = <Game savedGameManager={savedGameManager}/>
-  const mainMenu = <MainMenu savedGameManager={savedGameManager}/>
+  const mainMenu = <MainMenu loadGame={savedGameManager.load}/>
 
   return (
     <div className='App'>

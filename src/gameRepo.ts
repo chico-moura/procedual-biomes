@@ -8,7 +8,7 @@ const names = () => {
     return gameNames
 }
 
-const createNewGame = (newGameName: string) => {
+const create = (newGameName: string) => {
     const game = newGameTemplate()
     saveGame(newGameName, game)
     saveGameName(newGameName)
@@ -31,7 +31,7 @@ const saveGameName = (newGameName: string) => {
     saveGameNames(gameNames)
 }
 
-const deleteGame = (gameName: string) => {
+const delete_ = (gameName: string) => {
     localStorage.removeItem(gameName)
     deleteGameName(gameName)
 }
@@ -45,6 +45,8 @@ const deleteGameName = (gameName: string) => {
     }
 }
 
+const get = (gameName: string) => localStorage.getItem(gameName)
+
 const confirmDeletion = (gameName: string) => window.confirm(`Delete ${gameName}?`)
 
 const saveGameNames = (gameNames: string[]) => {
@@ -56,8 +58,9 @@ const savedGamesExist = () => names().length > 0
 
 const gameRepo = {
     names,
-    createNewGame,
-    deleteGame,
+    create,
+    delete: delete_,
+    get,
     savedGamesExist,
 }
 

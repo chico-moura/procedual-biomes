@@ -7,19 +7,21 @@ import LoadButtonRow from './LoadButtonRow'
 
 interface LoadGamePopUpProps {
     hide: () => void
+    loadGame: (serializedGame: string) => void
 }
 
 
 export default function LoadGamePopUp(props: LoadGamePopUpProps) {
     const [gamesNames, setGamesNames] = useState(gameRepo.names())
-    const resetGameNames = () => setGamesNames(gameRepo.names())
+    const refreshGameNames = () => setGamesNames(gameRepo.names())
 
     const loadButtonRow = () =>
         gamesNames.map(gameName => 
             <LoadButtonRow 
                 gameName={gameName}
                 key={gameName}
-                resetGameNames={resetGameNames}/>
+                refreshGameNames={refreshGameNames}
+                loadGame={props.loadGame}/>
         )
 
     if (!gameRepo.savedGamesExist()) {
