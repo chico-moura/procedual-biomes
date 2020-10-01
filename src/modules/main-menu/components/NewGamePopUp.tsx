@@ -2,7 +2,7 @@ import React, { FormEvent, useState } from 'react'
 import '../styles/NewSavePopUp.css'
 import ExitButton from 'modules/shared/exit-button'
 import newSaveErrors from '../newSaveErrors'
-import { SavedGameManager, PopUpManager } from 'types'
+import { SavedGameManager } from 'types'
 import gameRepo from 'gameRepo'
 
 interface NewSavePopUpProps {
@@ -20,12 +20,14 @@ export default function NewGamePopUp(props: NewSavePopUpProps) {
         validateName(name)
         if (validName) { 
             createNewGame()
-        } else {}
+        } 
     }
 
     const validateName = (newSaveName: string) => {
         if (!newSaveName) {
             setErrorMsg(newSaveErrors.blankName)
+        } else if (nameAlreadyExists(newSaveName)){
+            setErrorMsg(newSaveErrors.nameTaken)
         } else {
             validName = true
         }
@@ -59,4 +61,9 @@ export default function NewGamePopUp(props: NewSavePopUpProps) {
             <ExitButton onClick={props.hide}/>
         </div>
     )
+}
+
+const nameAlreadyExists = (newSaveName: string) => {
+    const existingNames = gameRepo.names()
+    return existingNames.includes(newSaveName)
 }
