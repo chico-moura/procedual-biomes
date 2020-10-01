@@ -2,10 +2,38 @@ enum Enum {
     savedGames = 'savedGames'
 }
 
-const addGameName = (newGameName: string) => {
+const names = () => {
+    const data = localStorage.getItem(Enum.savedGames)
+    const gameNames: string[] =  data ? JSON.parse(data) : []
+    return gameNames
+}
+
+const createNewGame = (newGameName: string) => {
+    const game = newGameTemplate()
+    saveGame(newGameName, game)
+    saveGameName(newGameName)
+}
+
+const newGameTemplate = () => {
+    return {
+        created: new Date(Date.now()).toLocaleString()
+    }
+}
+
+const saveGame = (name: string, game: object) => {
+    const data = JSON.stringify(game)
+    localStorage.setItem(name, data)
+}
+
+const saveGameName = (newGameName: string) => {
     const gameNames = names()
     gameNames.push(newGameName)
     saveGameNames(gameNames)
+}
+
+const deleteGame = (gameName: string) => {
+    localStorage.removeItem(gameName)
+    deleteGameName(gameName)
 }
 
 const deleteGameName = (gameName: string) => {
@@ -16,13 +44,8 @@ const deleteGameName = (gameName: string) => {
         saveGameNames(gameNames)
     }
 }
-const confirmDeletion = (gameName: string) => window.confirm(`Delete ${gameName}?`)
 
-const names = () => {
-    const data = localStorage.getItem(Enum.savedGames)
-    const gameNames: string[] =  data ? JSON.parse(data) : []
-    return gameNames
-}
+const confirmDeletion = (gameName: string) => window.confirm(`Delete ${gameName}?`)
 
 const saveGameNames = (gameNames: string[]) => {
     const serialized = JSON.stringify(gameNames)
@@ -33,8 +56,8 @@ const savedGamesExist = () => names().length > 0
 
 const gameRepo = {
     names,
-    addGameName,
-    deleteGameName,
+    createNewGame,
+    deleteGame,
     savedGamesExist,
 }
 

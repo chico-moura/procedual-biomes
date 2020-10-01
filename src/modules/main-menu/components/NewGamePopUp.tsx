@@ -34,7 +34,7 @@ export default function NewGamePopUp(props: NewSavePopUpProps) {
     }
 
     const createNewGame = () => {
-        gameRepo.addGameName(name)
+        gameRepo.createNewGame(name)
         props.hide()
     }
 

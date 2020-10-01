@@ -10,7 +10,7 @@ interface LoadButtonRowProps {
 
 export default function LoadButtonRow(props: LoadButtonRowProps) {
     const deleteGame = () => {
-        gameRepo.deleteGameName(props.gameName)
+        gameRepo.deleteGame(props.gameName)
         props.resetGameNames()
     }
 
