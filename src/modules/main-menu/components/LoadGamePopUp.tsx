@@ -22,6 +22,10 @@ export default function LoadGamePopUp(props: LoadGamePopUpProps) {
                 resetGameNames={resetGameNames}/>
         )
 
+    if (!gameRepo.savedGamesExist()) {
+        props.hide()
+    }
+
     return (
         <div className='pop-up'>
             <div>Load game</div>

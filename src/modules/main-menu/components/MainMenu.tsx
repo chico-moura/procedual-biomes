@@ -3,6 +3,7 @@ import '../styles/MainMenu.css'
 import NewGamePopUp from './NewGamePopUp'
 import LoadGamePopUp from './LoadGamePopUp'
 import { SavedGameManager } from 'types'
+import gameRepo from 'gameRepo'
 
 interface MainMenuProps {
     savedGameManager: SavedGameManager
@@ -29,6 +30,16 @@ export default function MainMenu(props: MainMenuProps){
         }
     }
 
+    const loadGameButton = () => {
+        if (gameRepo.savedGamesExist()) {
+            return <button 
+                className='main-button' 
+                onClick={loadGamePopUpManager.show}>
+                Load
+            </button>
+        }
+    }
+
     return (
         <div className='main-menu'>
             <h1>
@@ -39,9 +50,7 @@ export default function MainMenu(props: MainMenuProps){
                 New
             </button>
 
-            <button className='main-button' onClick={loadGamePopUpManager.show}>
-                Load
-            </button>
+            {loadGameButton()}
 
             {newGamePopup()}
             {loadGamePopUp()}

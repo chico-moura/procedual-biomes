@@ -29,10 +29,13 @@ const saveGameNames = (gameNames: string[]) => {
     localStorage.setItem(Enum.savedGames, serialized)
 }
 
+const savedGamesExist = () => names().length > 0
+
 const gameRepo = {
     names,
     addGameName,
     deleteGameName,
+    savedGamesExist,
 }
 
 export default gameRepo
